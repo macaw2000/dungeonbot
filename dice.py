@@ -1,5 +1,6 @@
-import discord
 import random
+import discord
+from discord.ext import commands
 
 sampleroll = '2d100' # roll two 20-sided die
 MAX_ROLL = 100
@@ -9,7 +10,7 @@ MAX_ROLL = 100
 # https://discordapp.com/oauth2/authorize?client_id=576823697671847937&scope=bot&permissions=67648
 
 
-client = discord.Client()
+client = commands.Bot(command_prefix = '.')
 
 @client.event
 async def on_ready():
@@ -19,7 +20,7 @@ async def on_ready():
 async def on_message(message):
     print(f'{message.channel}: {message.author}: {message.author.name}: {message.content}')
 
-@client.command(aliases=['!roll'])
+@client.command(aliases=['r'])
 async def roll(ctx, *, rollvalue):
     # Parse the roll into number of dice and sides on the dice
     dice, sided = map(int, rollvalue.split('d'))
@@ -32,6 +33,9 @@ async def roll(ctx, *, rollvalue):
         await ctx.send(f'You rolled {results}')
         print(results)
 
+@client.command()
+async def clear(ctx, amount=5):
+    await ctx.channel.purge(limit=amount)
 
 
 client.run("NTc2ODIzNjk3NjcxODQ3OTM3.XNcHIA.AkgQvKXvXXAcEdIEPdN_VEaN5tI")
