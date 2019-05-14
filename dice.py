@@ -1,6 +1,7 @@
 import random
 import discord
 from discord.ext import commands
+import rolldice
 
 sampleroll = '2d100' # roll two 20-sided die
 MAX_ROLL = 100
